@@ -8,15 +8,14 @@ Time: 23:53
 
 
 import sun.misc.Unsafe;
-
 import java.lang.reflect.Field;
 
 // 测试：Unsafe类
 public class demo02 {
 
 //    static final Unsafe unsafe = Unsafe.getUnsafe(); //获取UnSafe类实例   用于 test1()
-    static final Unsafe unsafe;                        //用于test2()
-    static final long stateOffSet;  //变量在demo02类中的偏移量。CAS方法中要用
+    private static final Unsafe unsafe;                        //用于test2()
+    private static final long stateOffSet;  //变量在demo02类中的偏移量。CAS方法中要用
 
     private volatile long state = 0;   //要执行CAS操作的变量
     static{
