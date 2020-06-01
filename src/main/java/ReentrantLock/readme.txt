@@ -1,0 +1,17 @@
+
+
+ReentrantLock锁：
+通过AQS的学习得知，在java中，AQS是所有锁实现的基础，ReentrantLock也不例外。
+ReentrantLock继承自AQS类，并且有两个构造函数，一个有参数，一个五参数。
+默认无参数情况下创建的是一个非公平锁。
+在reentrantLock内部有一个sync变量，这个sync变量本身是AQS的子类型。
+在ReentrantLock内部并没有设置像state、Condition这些域，而是通过其内部的sync域来间接操作sync的state域来实现同步的功能。
+公平与非公平是通过AQS非tryAcquire()方法去实现的。
+具体做法是，如果当前选择的是默认情况，即非公平锁，则正常申请锁。
+公平锁的时候，则是需要添加一个判断方法。
+在一个线程尝试如获取该锁的时候，除了非公平锁的判断条件外，还需要去判断当前的线程是否在AQS阻塞队列的队首。
+
+ReentrantLock锁是一个独占锁，因为它没有将读写事务分类处理，线程操作的时候，不管三七二十一直接锁上就完事了，
+所以不能用于同时多个线程读的情况，
+ReentrantReadWriteLock锁则是另一种版本的ReentrantLock。
+它将读与写事务分别使用读锁和写锁来控制，
